@@ -1,25 +1,111 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.9.34728.123
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp3", "ConsoleApp3\ConsoleApp3.csproj", "{06D2EFFE-8C18-4F81-B09C-89B6E09069E1}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{06D2EFFE-8C18-4F81-B09C-89B6E09069E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06D2EFFE-8C18-4F81-B09C-89B6E09069E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06D2EFFE-8C18-4F81-B09C-89B6E09069E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06D2EFFE-8C18-4F81-B09C-89B6E09069E1}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {09917240-1F5A-4A7F-8D67-BF45226074E1}
-	EndGlobalSection
-EndGlobal
+using System;
+
+public class Pessoa
+{
+    private string nome;
+    private int idade;
+    private string telefone;
+    private string endereco;
+    private string email;
+
+    public string Nome
+    {
+        get { return nome; }
+        set
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                nome = value;
+            }
+            else
+            {
+                throw new ArgumentException("");
+            }
+        }
+    }
+
+    public int Idade
+    {
+        get { return idade; }
+        set
+        {
+            if (value >= 0)
+            {
+                idade = value;
+            }
+            else
+            {
+                throw new ArgumentException("");
+            }
+        }
+    }
+
+    public string Telefone
+    {
+        get { return telefone; }
+        set { telefone = value; }
+    }
+
+    public string Endereco
+    {
+        get { return endereco; }
+        set { endereco = value; }
+    }
+
+    public string Email
+    {
+        get { return email; }
+        set
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                email = value;
+            }
+            else
+            {
+                throw new ArgumentException("Email não pode ser vazio.");
+            }
+        }
+    }
+
+    public Pessoa(string nome, int idade, string telefone, string endereco, string email)
+    {
+        Nome = nome;
+        Idade = idade;
+        Telefone = telefone;
+        Endereco = endereco;
+        Email = email;
+    }
+}
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        Pessoa pessoa = new Pessoa("João da Silva", 25, "99999-9999", "Rua 1, 123", "123456789@exemplo.com");
+
+        Console.WriteLine($"Nome: {pessoa.Nome}");
+        Console.WriteLine($"Idade: {pessoa.Idade}");
+        Console.WriteLine($"Telefone: {pessoa.Telefone}");
+        Console.WriteLine($"Endereço: {pessoa.Endereco}");
+        Console.WriteLine($"Email: {pessoa.Email}");
+
+        try
+        {
+            pessoa.Idade = -5; 
+        }
+        catch (ArgumentException e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+        try
+        {
+            pessoa.Nome = ""; 
+        }
+        catch (ArgumentException e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
+}
